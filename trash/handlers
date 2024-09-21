@@ -1,0 +1,103 @@
+// // Конкретный обработчик для выполнения запроса
+// class ConcreteHandler final : public Handler {
+// public:
+//   ConcreteHandler() {
+//     registerHandler(typeid(Add_Pool), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     registerHandler(typeid(Remove_Pool), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//     registerHandler(typeid(Add_Schema), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     registerHandler(typeid(Remove_Schema), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//     registerHandler(typeid(Add_Collection), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     registerHandler(typeid(Remove_Collection), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//
+//     registerHandler(typeid(Add_Data), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     registerHandler(typeid(Remove_Data), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     registerHandler(typeid(Update_Data), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     registerHandler(typeid(ReadOne_Data), [](Command &command) {
+//       command.execute();
+//     });
+//
+//     registerHandler(typeid(ReadRange_Data), [](Command &command) {
+//       command.execute();
+//     });
+//   }
+// };
+
+
+//-------------------------------====================================----------------------------=======================
+
+int requiredIdx = findInsertIndex(reverseCommandTime_history, time);
+  //
+  //   if (requiredIdx == reverseCommandTime_history.size())
+  //     return;
+  //
+  //   int startIdx = reverseCommandTime_history.size() - 1;
+  //
+  //   std::ostringstream oss;
+  //   std::ostringstream timeOss;
+  //
+  //   // Получение текущего времени
+  //   const auto now = std::chrono::system_clock::now();
+  //   const std::time_t now_time_t = std::chrono::system_clock::to_time_t(now);
+  //   const std::tm local_tm = *std::localtime(&now_time_t);
+  //
+  //   // Форматирование времени с помощью <iomanip>
+  //   oss << "--- "
+  //       << std::put_time(&local_tm, "%Y-%m-%d %H:%M:%S")
+  //       << ": GET_BACK";
+  //
+  //   history.emplace_back(oss.str());
+  //
+  //   timeOss << std::put_time(&local_tm, "%Y-%m-%d %H:%M:%S");
+  //   reverseCommandTime_history.emplace_back(timeOss.str());
+  //
+  //   std::vector<std::unique_ptr<Command> > commandsChain;
+  //
+  //   while (startIdx >= requiredIdx) {
+  //     int commandChainIdx = reverseCommand_history[startIdx].size() - 1;
+  //
+  //     while (commandChainIdx >= 0) {
+  //       if (reverseCommand_history[startIdx][commandChainIdx] != nullptr) {
+  //         reverseCommand_history[startIdx][commandChainIdx]->execute();
+  //
+  //         commandsChain.emplace_back(std::move(reverseCommand_history[startIdx][commandChainIdx]->getRevCommand()));
+  //       }
+  //
+  //       --commandChainIdx;
+  //     }
+  //
+  //     --startIdx;
+  //   }
+  //
+  //   reverseCommand_history.emplace_back(std::move(commandsChain));

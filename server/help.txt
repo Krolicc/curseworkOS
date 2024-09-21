@@ -1,0 +1,61 @@
+Существуют следующие команды (в угловых скобках необходимые переменные):
+
+1. ADD_PULL || AP <PoolName>
+- Добавляет пул схем данных с именем <PullName>
+
+
+2. REMOVE_PULL || RP <PoolName>
+- Удаляет пул схем данных по имени <PullName>
+
+
+3. ADD_SCHEMA || AS <PoolName> <SchemaName>
+- Добавляет схему данных с именем <SchemaName> в пуле <PullName>
+
+
+4. REMOVE_SCHEMA || RS <PoolName> <SchemaName>
+- Удаляет схему данных по имени <SchemaName> в пуле <PullName>
+
+
+5. ADD_COLLECTION || AC <PoolName> <SchemaName> <CollectionName>
+- Добавляет коллекцию данных с именем <CollectionName> в схеме данных <SchemaName> в пуле <PullName>
+
+
+6. REMOVE_COLLECTION || RC <PoolName> <SchemaName> <CollectionName>
+- Удаляет коллекцию данных по имени <CollectionName> в схеме данных <SchemaName> в пуле <PullName>
+
+
+7. ADD_DATA || AD <PoolName> <SchemaName> <CollectionName> <Key of Data> <PairCount>
+                                                 <Key of Pair_1> <Value of Pair_1> ... <Key of Pair_n> <Value of Pair_n>
+- Добавляет данные в виде <ключ <Key of Pair_n>: значение <Value of Pair_n>> в ключ <Key of Data>
+                                       в коллекцию данных <CollectionName> в схеме данных <SchemaName> в пуле <PullName>
+
+
+8. REMOVE_DATA || RD <PoolName> <SchemaName> <CollectionName> <Key of Data>
+- Удаляет данные по ключу <Key of Data> в коллекции данных <CollectionName> в схеме данных <SchemaName> в пуле <PullName>
+
+
+9. UPDATE_DATA || UD <PoolName> <SchemaName> <CollectionName> <ID of Data> <PairCount>
+                                                 <Key of Pair_1> <Value of Pair_1> ... <Key of Pair_n> <Value of Pair_n>
+- Обновляет данные в виде <ключ <Key of Pair_n>: значение <Value of Pair_n>> по ключу <ID of Data>
+                                       в коллекции данных <CollectionName> в схеме данных <SchemaName> в пуле <PullName>
+
+
+10. READ_ONE_DATA || ROD <PoolName> <SchemaName> <CollectionName> <Type of Key: "id" | "name"> <Key of Data>
+- Читает данные по ключу <Key of Data> типа <Type of Key> в коллекции данных <CollectionName> в схеме данных <SchemaName> в пуле <PullName>
+
+
+11. READ_RANGE_DATA || RRD <PoolName> <SchemaName> <CollectionName> <Type of Key: "id" | "name"> <MinKey of Data> <MaxKey of Data>
+- Читает данные в диапазоне ключей [<MinKey of Data>;  <MaxKey of Data>] типа <Type of Key> в коллекции данных <CollectionName>
+                                                                           в схеме данных <SchemaName> в пуле <PullName>
+
+
+12. history
+- Показывает все действия произведенные в данной сессии
+
+
+13. GET_BACK || back <time: "YYYY-MM-DD hh:mm::ss">
+- Отменяет все действия до указанно время <time>
+
+
+14. exit
+- Выход в основное меню

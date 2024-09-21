@@ -1,0 +1,220 @@
+#ifndef TREE_H
+#define TREE_H
+
+// КФС - класс файловой системы
+// НАК - неупорядоченный абстрактный контейнер
+
+
+#include <string>
+
+#include <map>
+#include <optional>
+
+#include <utility>
+
+#include <fstream>
+
+struct Data {
+  int id;
+  std::string name;
+
+  std::map<std::string, std::string> extraData;
+};
+
+
+// Абстрактный класс, задающий общий интерфейс для всех контейнеров данных
+class IDataContainer {
+public:
+  // Вирутальный деструктор
+  virtual ~IDataContainer() = default;
+
+  // Виртуальный метод добавления
+  virtual void add(const std::string &key,
+                   const std::map<std::string, std::string> &value) = 0;
+
+  // Виртуальный метод чтения
+  [[ nodiscard ]] virtual std::optional<std::map<std::string, std::string> > read(const std::string &key) const = 0;
+
+  // Виртуальный метод Чтения диапазона
+  [[ nodiscard ]] virtual std::map<std::string, std::map<std::string, std::string> > readRange(
+    const std::string &minKey, const std::string &maxKey) const = 0;
+
+  // Виртуальный метод обновления данных
+  virtual void update(const std::string &key,
+                      const std::map<std::string, std::string> &newValue) = 0;
+
+  // Виртуальный метод удаления
+  virtual void remove(const std::string &key) = 0;
+
+  virtual std::map<std::string, std::map<std::string, std::string> > getData() = 0;
+
+  virtual std::string getName() = 0;
+};
+
+//======================================================================================================================
+
+// Класс, реализующий работу в памяти
+class InMemoryDataContainer final : public IDataContainer {
+private:
+  // Данные над которыми проводятся операции
+  std::map<std::string, Data*> data;
+
+  std::string storageType = "memory";
+
+public:
+  // Override операция добавления in memory cache
+  void add(const std::string &key, const std::map<std::string, std::string> &value) override {
+    Data *new_data = new Data(data.size(), key, value);
+    data[key] = new_data;
+  }
+
+  // Override операция чтения in memory cache
+  [[nodiscard]] std::optional<std::map<std::string, std::string> >
+  read(const std::string &key) const override {
+    const auto it = data.find(key);
+
+    if (it != data.end())
+      return it->second;
+
+    std::cout << "Не найден" << std::endl;
+    return std::nullopt;
+  }
+
+  // Override операция чтения диапазона in memory cache
+  [[nodiscard]] std::map<std::string, std::map<std::string, std::string> >
+  readRange(const std::string &minKey, const std::string &maxKey) const override {
+    std::map<std::string, std::map<std::string, std::string> > result;
+
+    for (auto it = data.lower_bound(minKey); it != data.upper_bound(maxKey); ++it)
+      result[it->first] = it->second;
+
+    return result;
+  }
+
+  // Override операция обновления in memory cache
+  void update(const std::string &key, const std::map<std::string, std::string> &newValue) override {
+    if (const auto it = data.find(key); it != data.end()) {
+      it->second = newValue;
+    }
+  }
+
+  // Override операция удаления in memory cache
+  void remove(const std::string &key) override {
+    data.erase(key);
+  }
+
+  // Переопределеный метод получения данных
+  std::map<std::string, std::map<std::string, std::string> > getData() override {
+    return data;
+  }
+
+  std::string getName() override {
+    return storageType;
+  }
+};
+
+//----------------------------------------------------------------------------------------------------------------------
+
+
+// Класс, реализующий работу с файловой системой
+class FileDataContainer final : public IDataContainer {
+private:
+  // Имя файловой системы
+  std::string filename;
+  // Данные над которыми проводятся операции
+  std::map<std::string, std::map<std::string, std::string> > data;
+  std::string storageType = "file";
+
+
+  // Приватный метод, сохраняющий в файле
+  void saveToFile() const {
+    std::ofstream file(filename);
+
+    for (const auto &[name, data]: data) {
+      file << name << " " << data.size() << '\n';
+      for (const auto &[key, value]: data)
+        file << " " << key << " : " << value << '\n';
+    }
+  }
+
+  // Приватный метод, выгружаюсщий из файла
+  void loadFromFile() {
+    std::ifstream file(filename);
+    if (!file ) return;
+
+    std::string name, key, value;
+    char _separator;
+    int data_size;
+
+    while (file >> name >> data_size) {
+      std::map<std::string, std::string> extra_params;
+      for (int _ = 1; _ <= data_size; ++_) {
+        file >> key >> _separator >> value;
+        extra_params[key] = value;
+      }
+      data[name] = extra_params;
+    }
+  }
+
+public:
+  // Конструктор, получающий явно строку с именем файла, загружает данные
+  explicit FileDataContainer(std::string file) : filename(std::move(file)) {
+    loadFromFile();
+  }
+
+  // Деструктор, сохряняющий данный напоследок
+  ~FileDataContainer() override {
+    saveToFile();
+  }
+
+  // Переопределенный метод добавления в КФС
+  void add(const std::string &key, const std::map<std::string, std::string> &value) override {
+    data[key] = value;
+  }
+
+  // Переопределенный метод чтения в КФС
+  [[nodiscard]] std::optional<std::map<std::string, std::string> >
+  read(const std::string &key) const override {
+    const auto it = data.find(key);
+
+    if (it != data.end())
+      return it->second;
+
+    std::cout << "Не найден" << std::endl;
+    return std::nullopt;
+  }
+
+  // Переопределенный метод чтения диапазона в КФС
+  [[nodiscard]] std::map<std::string, std::map<std::string, std::string> >
+  readRange(const std::string &minKey, const std::string &maxKey) const override {
+    std::map<std::string, std::map<std::string, std::string> > result;
+
+    for (auto it = data.lower_bound(minKey); it != data.upper_bound(maxKey); ++it)
+      result[it->first] = it->second;
+
+    return result;
+  }
+
+  // Переопределенный метод обновления в КФС
+  void update(const std::string &key, const std::map<std::string, std::string> &newValue) override {
+    if (const auto it = data.find(key); it != data.end()) {
+      it->second = newValue;
+    }
+  }
+
+  // Переопределенный метод удаления в КФС
+  void remove(const std::string &key) override {
+    data.erase(key);
+  }
+
+  // Переопределеный метод получения данных
+  std::map<std::string, std::map<std::string, std::string> > getData() override {
+    return data;
+  }
+
+  std::string getName() override {
+    return storageType;
+  }
+};
+
+#endif //TREE_H

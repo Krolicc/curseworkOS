@@ -1,0 +1,69 @@
+ADD_PULL ANIMALS
+
+ADD_SCHEMA ANIMALS CATS
+ADD_COLLECTION ANIMALS CATS CAT
+ADD_DATA ANIMALS CATS CAT 7 SICILIAN 2 eyes brown head small
+ADD_DATA ANIMALS CATS CAT 5 PEAKEAR 4 eyes gray head small paw fluffy intelligence high
+ADD_DATA ANIMALS CATS CAT 9 GRAY 0
+
+ADD_COLLECTION ANIMALS CATS LION
+ADD_DATA ANIMALS CATS LION 8 COMMON 4 eyes blue head big color yellow meal meat
+
+ADD_COLLECTION ANIMALS CATS PANTERA
+ADD_DATA ANIMALS CATS PANTERA 1 BLACK 3 eyes black numberInPack single color black
+
+ADD_COLLECTION ANIMALS CATS LYNX
+ADD_DATA ANIMALS CATS LYNX 7 SIBERIAN 3 eyes black numberInPack single color black
+
+ADD_SCHEMA ANIMALS BEARISH
+ADD_COLLECTION ANIMALS BEARISH BEAR
+ADD_DATA ANIMALS BEARISH BEAR 7 BROWN 3 eyes brown numberInPack single color brown
+
+// =====================================================================================================================
+
+ADD_PULL ORGANICS
+
+ADD_SCHEMA ORGANICS PLANT
+ADD_COLLECTION ORGANICS PLANT FLOWER
+ADD_DATA ORGANICS PLANT FLOWER 10 ROSE 3 petals red color red smell fragrant
+ADD_DATA ORGANICS PLANT FLOWER 54 FRENCHHYACINTH 3 petals blue color blue smell fragrant
+ADD_DATA ORGANICS PLANT FLOWER 1 DAISY 3 petals white color white smell fragrant
+
+ADD_SCHEMA ORGANICS BACTERIA
+ADD_COLLECTION ORGANICS BACTERIA STAPHYLOCOCCUS
+ADD_DATA ORGANICS BACTERIA STAPHYLOCOCCUS 8 AUREUS 4 shape round color gold toxicity high
+
+ADD_SCHEMA ORGANICS FUNGUS
+ADD_COLLECTION ORGANICS FUNGUS MUSHROOM
+ADD_DATA ORGANICS FUNGUS MUSHROOM 10 WHITE 5 color white shape round edible yes taste mild
+ADD_DATA ORGANICS FUNGUS MUSHROOM 32 PORTABELLA 4 color brown shape round edible yes taste mild
+
+// =====================================================================================================================
+
+ADD_PULL FISH
+
+ADD_SCHEMA FISH CARTILAGINOUS
+ADD_COLLECTION FISH CARTILAGINOUS SHARK
+ADD_DATA FISH CARTILAGINOUS SHARK 10 GREATWHITE 4 eyes blue head big color white meal fish
+ADD_DATA FISH CARTILAGINOUS SHARK 8 TIGER 4 eyes black head small color black meal fish
+
+ADD_SCHEMA FISH TURTLE
+ADD_COLLECTION FISH TURTLE SEA
+ADD_DATA FISH TURTLE SEA 7 GREEN 3 eyes black head small color green meal plant
+ADD_DATA FISH TURTLE SEA 5 HAWKBILL 4 eyes yellow head big color brown meal fish
+
+ADD_SCHEMA FISH GOLDFISH
+ADD_COLLECTION FISH GOLDFISH COMMON
+ADD_DATA FISH GOLDFISH COMMON 5 ORANGE 4 eyes black head small color orange meal plant
+ADD_DATA FISH GOLDFISH COMMON 7 RED 3 eyes black head small color red
+
+// =====================================================================================================================
+
+ADD_PULL BIRDS
+
+ADD_SCHEMA BIRDS FALCONRY
+ADD_COLLECTION BIRDS FALCONRY EAGLE
+ADD_DATA BIRDS FALCONRY EAGLE 5 BALDEAGLE 4 eyes yellow head big color brown meal meat
+ADD_DATA BIRDS FALCONRY EAGLE 7 GOLDENEAGLE 3 eyes yellow head small color brown
+
+UPDATE_DATA BIRDS FALCONRY EAGLE 7 GOLDENEAGLE 2 eyes yellow head small

@@ -1,0 +1,6 @@
+C:/Users/y-bra/CLionProjects/CurseWork/cmake-build-debug/CMakeFiles/CurseWork.dir
+C:/Users/y-bra/CLionProjects/CurseWork/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/y-bra/CLionProjects/CurseWork/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/y-bra/CLionProjects/CurseWork/cmake-build-debug/client/CMakeFiles/CurseWork_client.dir
+C:/Users/y-bra/CLionProjects/CurseWork/cmake-build-debug/client/CMakeFiles/edit_cache.dir
+C:/Users/y-bra/CLionProjects/CurseWork/cmake-build-debug/client/CMakeFiles/rebuild_cache.dir
